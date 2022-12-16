@@ -1,5 +1,6 @@
 package _01_Spies_On_A_Train;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -23,16 +24,37 @@ public class SpiesOnATrain {
      * statements.
      */
     String findIntel(LinkedList<TrainCar> train, String[] clues) {
+    	ArrayList <String> culpList = new ArrayList<String>();
+    	ArrayList<String> trueTest = new ArrayList<String>();
+    	String culp = "";
     	for (int i = 0; i < train.size(); i++) {
-			if((train.getHead().getValue().questionPassenger().contains(clues[0]))&&(train.getHead().getValue().questionPassenger().contains(clues[1]))&&(train.getHead().getValue().questionPassenger().contains(clues[3]))){
-				return train.getHead().toString();
-		}
-			else {
-				System.out.println(train.getHead().toString());
-				train.getHead().getNext();
+			for (int j = 0; j < clues.length; j++) {
+			if (train.getHead().getValue().questionPassenger().contains(clues[j])) {
+				trueTest.add(clues[j]);
+				String[] sentSplit = train.getHead().getValue().questionPassenger().split("[ ]");
+				System.out.println(sentSplit.length);
+				if (culpList.contains(sentSplit[13])) {
+						culpList.removeAll(culpList);
+						culpList.add(sentSplit[13]);
+						break;
+				}
+				culpList.add(sentSplit[13]);
+				
 			}
+			}
+			
+    			System.out.println(train.getHead().getValue().questionPassenger());
+				train.getHead().setPrev(train.getHead());
+				train.setHead(train.getHead().getNext());
 		}
-        return null;
+    	
+				culp=culpList.get(0);	
+			System.out.println(culp);
+		
+	
+			
+		
+        return culp;
 
     }
 
