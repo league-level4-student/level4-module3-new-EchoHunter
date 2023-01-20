@@ -34,31 +34,9 @@ public class RainbowZombieCongaLine {
 	// Make the passed in zombie the first Zombie in the conga line!
 	public void engine(Zombie dancer) {
 		Node<Zombie> current;
-		Node<Zombie> next;
-		LinkedList<Zombie> congaCopy = new LinkedList<Zombie>();
 		current = congaLine.getHead();
-		next = current.getNext();
-		for (int i = 0; i < congaLine.size(); i++) {
-			congaCopy.add(current.getValue());
-			current = next;
-			if (current.getNext() != null) {
-				next = current.getNext();
-
-			}
-
-		}
-
-		current = congaCopy.getHead();
-		next = current.getNext();
 		congaLine.setHead(new Node<Zombie>(dancer));
-
-		for (int i = 0; i < congaCopy.size(); i++) {
-			congaLine.add(current.getValue());
-			current = next;
-			if (current.getNext() != null) {
-				next = current.getNext();
-			}
-		}
+		congaLine.getHead().setNext(current);
 	}
 
 	// Make the passed in zombie the last Zombie in the conga line!
@@ -73,18 +51,14 @@ public class RainbowZombieCongaLine {
 		Node<Zombie> next;
 		current = congaLine.getHead();
 		next = current.getNext();
-		while (position != jumpCounter && position < congaLine.size()) {
+		while(jumpCounter < position) {
 			current = next;
 			next = current.getNext();
 			jumpCounter++;
 		}
-		current.setNext(new Node<Zombie>(dancer));
-		next = current.getNext();
-		while (current.getNext() != null) {
-			current = next;
-			next = current.getNext();
-		}
-
+		congaLine.add(dancer);
+		
+		congaLine.getTail().setNext(current);
 	}
 
 	/*
