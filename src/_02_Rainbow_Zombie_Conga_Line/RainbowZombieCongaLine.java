@@ -104,13 +104,9 @@ public class RainbowZombieCongaLine {
     		}
     	}
     	if(next.getValue() != null) {
-    		current.setValue(next.getValue());
-    		next=next.getNext();
+    		current=current.getPrev();
     		current.setNext(next);
-    		}else {
-    			congaLine.remove(congaLine.size()-1);
-    		}
-    	
+    		
     }
 	
 
