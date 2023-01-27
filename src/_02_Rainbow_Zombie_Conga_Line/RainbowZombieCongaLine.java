@@ -51,14 +51,14 @@ public class RainbowZombieCongaLine {
 		Node<Zombie> next;
 		current = congaLine.getHead();
 		next = current.getNext();
-		while(jumpCounter < position) {
+		while(jumpCounter < position-1) {
 			current = next;
 			next = current.getNext();
 			jumpCounter++;
 		}
-		congaLine.add(dancer);
-		
-		congaLine.getTail().setNext(current);
+		current.setNext(new Node<Zombie>(dancer));
+		current = current.getNext();
+		current.setNext(next);
 	}
 
 	/*
@@ -66,19 +66,26 @@ public class RainbowZombieCongaLine {
 	 * conga line!
 	 */
 	public void everyoneOut(Zombie dancer) {
-//    	Node<Zombie> current;
-//    	Node<Zombie> next;
-//    	current = congaLine.getHead();
-//    	next = current.getNext();
-//    	for(int i = 0;i<congaLine.size();i++) {
-//    		if(current.getValue().getZombieHatColor()==dancer.getZombieHatColor()) {
-//    			current.setValue(next.getValue());
-//    			next.getNext();
-//    		}
-//    		current = next;
-//        	next = current.getNext();
-//    		
-//    	}
+    	Node<Zombie> current;
+    	Node<Zombie> next;    	
+    	current = congaLine.getHead();
+    	next = current.getNext();
+    	for(int i = 0;i<congaLine.size();i++) {
+    	if(current.getValue().getZombieHatColor()==dancer.getZombieHatColor()) {
+    		if(next.getValue() != null) {
+    		current.setValue(next.getValue());
+    		next=next.getNext();
+    		current.setNext(next);
+    		}else {
+    			congaLine.remove(congaLine.size()-1);
+    		}
+    	}else {
+    		current = next;
+    		if(current.getNext()!=null) {
+    		next = current.getNext();
+    		}
+    	}
+    	}
 	}
 
 	/*
@@ -86,8 +93,26 @@ public class RainbowZombieCongaLine {
 	 * the conga line!
 	 */
 	public void youAreDone(Zombie dancer) {
-
-	}
+		Node<Zombie> current;
+    	Node<Zombie> next;    	
+    	current = congaLine.getHead();
+    	next = current.getNext();
+    	while(current.getValue().getZombieHatColor()==dancer.getZombieHatColor()) {
+    		current = next;
+    		if(current.getNext()!= null) {
+    		next = current.getNext();
+    		}
+    	}
+    	if(next.getValue() != null) {
+    		current.setValue(next.getValue());
+    		next=next.getNext();
+    		current.setNext(next);
+    		}else {
+    			congaLine.remove(congaLine.size()-1);
+    		}
+    	
+    }
+	
 
 	/*
 	 * Make two more zombies with the same hat color as the passed in zombie and add
