@@ -15,9 +15,10 @@ public class HowManyAreSmallerThanMe {
      */
 
     public int howManyAreSmallerThanMe(AVLTree<Integer> avlTree, int me) {
-
+    	int smallCount = 0;
+    	System.out.println(avlTree.search(me).getLeft().getValue());
+    	
         return 0;
 
     }
-
 }
