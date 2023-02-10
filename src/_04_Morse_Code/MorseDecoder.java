@@ -4,76 +4,91 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
 
 public class MorseDecoder {
 
-    BinaryTree<MorseCode> mcTree = new BinaryTree<MorseCode>();
+	BinaryTree<MorseCode> mcTree = new BinaryTree<MorseCode>();
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        MorseDecoder md = new MorseDecoder();
-        md.initialize();
-        md.decode();
+		MorseDecoder md = new MorseDecoder();
+		md.initialize();
+		md.decode();
+		md.translate();
 
-    }
+	}
 
-    public void initialize() {
+	public void initialize() {
 
-        mcTree.insert(new MorseCode("start", ""));
-        mcTree.insert(new MorseCode("e", "."));
-        mcTree.insert(new MorseCode("t", "-"));
+		mcTree.insert(new MorseCode("start", ""));
+		mcTree.insert(new MorseCode("e", "."));
+		mcTree.insert(new MorseCode("t", "-"));
 
-        mcTree.insert(new MorseCode("i", ".."));
-        mcTree.insert(new MorseCode("a", ".-"));
-        mcTree.insert(new MorseCode("n", "-."));
-        mcTree.insert(new MorseCode("m", "--"));
+		mcTree.insert(new MorseCode("i", ".."));
+		mcTree.insert(new MorseCode("a", ".-"));
+		mcTree.insert(new MorseCode("n", "-."));
+		mcTree.insert(new MorseCode("m", "--"));
 
-        mcTree.insert(new MorseCode("s", "..."));
-        mcTree.insert(new MorseCode("u", "..-"));
-        mcTree.insert(new MorseCode("r", ".-."));
-        mcTree.insert(new MorseCode("w", ".--"));
-        mcTree.insert(new MorseCode("d", "-.."));
-        mcTree.insert(new MorseCode("k", "-.-"));
-        mcTree.insert(new MorseCode("g", "--."));
-        mcTree.insert(new MorseCode("o", "---"));
+		mcTree.insert(new MorseCode("s", "..."));
+		mcTree.insert(new MorseCode("u", "..-"));
+		mcTree.insert(new MorseCode("r", ".-."));
+		mcTree.insert(new MorseCode("w", ".--"));
+		mcTree.insert(new MorseCode("d", "-.."));
+		mcTree.insert(new MorseCode("k", "-.-"));
+		mcTree.insert(new MorseCode("g", "--."));
+		mcTree.insert(new MorseCode("o", "---"));
 
-        mcTree.insert(new MorseCode("h", "...."));
-        mcTree.insert(new MorseCode("v", "...-"));
-        mcTree.insert(new MorseCode("f", "..-."));
-        mcTree.insert(new MorseCode("l", ".-.."));
-        mcTree.insert(new MorseCode("p", ".--."));
-        mcTree.insert(new MorseCode("j", ".---"));
-        mcTree.insert(new MorseCode("b", "-..."));
-        mcTree.insert(new MorseCode("x", "-..-"));
-        mcTree.insert(new MorseCode("c", "-.-."));
-        mcTree.insert(new MorseCode("y", "-.--"));
-        mcTree.insert(new MorseCode("z", "--.."));
-        mcTree.insert(new MorseCode("q", "--.-"));
+		mcTree.insert(new MorseCode("h", "...."));
+		mcTree.insert(new MorseCode("v", "...-"));
+		mcTree.insert(new MorseCode("f", "..-."));
+		mcTree.insert(new MorseCode("l", ".-.."));
+		mcTree.insert(new MorseCode("p", ".--."));
+		mcTree.insert(new MorseCode("j", ".---"));
+		mcTree.insert(new MorseCode("b", "-..."));
+		mcTree.insert(new MorseCode("x", "-..-"));
+		mcTree.insert(new MorseCode("c", "-.-."));
+		mcTree.insert(new MorseCode("y", "-.--"));
+		mcTree.insert(new MorseCode("z", "--.."));
+		mcTree.insert(new MorseCode("q", "--.-"));
 
-        mcTree.printVertical();
+		mcTree.printVertical();
 
-    }
+	}
 
-    /*
-     * 1.) See if you can decode the following message using the binary tree and
-     * print it to the console:
-     * 
-     * -.-- --- ..- .- .-. . .- -- .- --.. .. -. --.
-     * 
-     * 2.) Then use the binary tree and the scanner class to create a morse code
-     * translator. The user should be able to type multiple letters in morse
-     * code on a single line and have it repeated back to them, decoded into the
-     * english alphabet.
-     * 
-     */
-    void decode() {
-        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
-        String[] morseStrings = morseCode.split("[ ]");
-        StringBuilder translator = new StringBuilder("");
-//        for (int i = 0; i < morseStrings.length; i++) {
-//			String tChar = mcTree.search("-.--");
-//		}
-    }
+	/*
+	 * 1.) See if you can decode the following message using the binary tree and
+	 * print it to the console:
+	 * 
+	 * -.-- --- ..- .- .-. . .- -- .- --.. .. -. --.
+	 * 
+	 * 2.) Then use the binary tree and the scanner class to create a morse code
+	 * translator. The user should be able to type multiple letters in morse code on
+	 * a single line and have it repeated back to them, decoded into the english
+	 * alphabet.
+	 * 
+	 */
+	void decode() {
+		String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+		String[] morseStrings = morseCode.split(" ");
+		StringBuilder translator = new StringBuilder("");
+		for (int i = 0; i < morseStrings.length; i++) {
+			MorseCode m = new MorseCode("", morseStrings[i]);
+			translator.append(mcTree.search(m).getValue().getDecoded());
+		}
+		System.out.println(translator.toString());
+	}
+	void translate() {
+		String morseCode = JOptionPane.showInputDialog("type your morse code message");
+		String[] morseStrings = morseCode.split(" ");
+		StringBuilder translator = new StringBuilder("");
+		for (int i = 0; i < morseStrings.length; i++) {
+			MorseCode m = new MorseCode("", morseStrings[i]);
+			translator.append(mcTree.search(m).getValue().getDecoded());
+		}
+		System.out.println(translator.toString());
+	}
 
 }
