@@ -22,7 +22,6 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (nodeQuery == null) {
             System.out.println("NOT FOUND. RETURN VALUE IS NULL");
             return null;
-
         } else {
             System.out.println("FOUND VALUE: " + nodeQuery.getValue());
             return nodeQuery;
